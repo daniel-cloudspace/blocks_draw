@@ -18,6 +18,10 @@ io.sockets.on('connection', function(socket) {
     // do stuff in response to keystrokes
   });
 
+  socket.on('add_voxel', function(data) {
+    socket.broadcast.emit('add_voxel', data)
+  })
+
   socket.on('disconnect', function(){
     // handle disconnections, remove users, etc
   });

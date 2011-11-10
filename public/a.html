@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      var a, b, my_id;
+      window.addEventListener('load', function() {
+        var socket = new io.connect();
+    
+        // Event handlers for server->client messages
+        socket.on('disconnect', function(){ 
+          /* something related to disconnect! */ 
+        });
+        socket.on('init_data', function(init_data) {
+          my_id = init_data.my_id;
+          a = init_data.a; // sets global ‘a’ variable from data sent by Socket.io
+          b = init_data.b; // sets global ‘b’ variable
+        });
+    
+        // Event handers for client->server messages!
+        document.addEventListener('keypress', function(e) {
+            e.preventDefault();
+            socket.emit('keystroke', {
+                my_id: my_id, 
+                keyCode: e.keyCode
+            });
+        }, false);
+    });
+    </script>
+</style>
+</head>
+<body></body>
+</html>
