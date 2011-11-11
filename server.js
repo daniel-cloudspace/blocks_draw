@@ -6,11 +6,10 @@ app.use(app.router)
 app.use(express.static(__dirname + '/public'))
 app.listen(8000)
 
-var init_data = ''
+var init_data = '#A/bppmYfYfYfYfZffYfYfbmfhYfYfZfbZflZffYfYeYfbofhYfYfYfZffYfYfYfYfbnffZfiYfYfYfZefYhaffSfbhhhYhYhYhYhacfYiYhYbSfYhYhYhYhbcffYhZhhTfeSfYhaehSfbfhhYfYfaifYeYfSfYjaefbeifShYfaheaffYhYhaefZhiaffYhahhYhYhShYhYhShYhYhYhYhaffYfYfSfYeadeShYiYhYhadfYhYhYiShahhaadYhYhYhYhYhacfYiYhYhYhYhahhYfShYhafdYfYcYhYhaffYhYhYhbbojYhShbfcbakcbdhdaiiSiainbfkoShYfYfbjRXShShbWaiYfYfShShShYhYhaeiSiSfahhYhSfSfYfafkYiYfafhShaifafhYhaeiShShYiYfafiYiafi'
 
 var io = socketio.listen(app)
 io.sockets.on('connection', function(socket) {
-  console.log(init_data)
   socket.emit('init_data', { 
     my_id: socket.id, 
     init_data: init_data
@@ -23,7 +22,6 @@ io.sockets.on('connection', function(socket) {
   socket.on('add_voxel', function(data) {
     init_data = data.init_data
     socket.broadcast.emit('add_voxel', data)
-    console.log(init_data, data)
   })
 
   socket.on('disconnect', function(){
