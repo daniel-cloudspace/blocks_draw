@@ -44,6 +44,10 @@
           /* something related to disconnect! */ 
         });
         socket.on('init_data', function(init_data) {
+          if('init_data' in init_data) {
+            window.location.hash = init_data.init_data
+            buildFromHash()
+          }
           my_id = init_data.my_id
         });
         socket.on('add_voxel', function(data) {
@@ -241,7 +245,9 @@
 
 				socket.emit('add_voxel', { 
 					ray: ray,
-					color: color 
+					color: color ,
+					init_data: document.location.hash,
+					isShiftDown: isShiftDown,
 				})
 
 				add_or_remove_voxel(ray, color, isShiftDown)
@@ -298,6 +304,7 @@
 			}
 
 			function buildFromHash() {
+console.log(window.location.hash)
 
 				var hash = window.location.hash.substr( 1 ),
 				version = hash.substr( 0, 2 );
